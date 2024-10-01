@@ -7,13 +7,13 @@ void main()
 {
 pid_t pid1;
  printf("CCC \n");
- pid1=fork();
- if (pid1==0)
+ if (fork()!=0)
  {
- printf("BBB \n");
- } else {
  wait(NULL);
  printf("AAA \n");
+ } else {
+
+ printf("BBB \n");
  }
  exit(0);
 }
