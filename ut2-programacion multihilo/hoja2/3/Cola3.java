@@ -22,7 +22,7 @@ public class Cola3 {
     public synchronized int get() {
        if (lista.peek()==null) {
 		try {
-			wait(100);
+			wait();
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

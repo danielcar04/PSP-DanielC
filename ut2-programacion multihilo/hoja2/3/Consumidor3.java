@@ -24,14 +24,14 @@ public class Consumidor3 extends Thread {
                 comp = cola3.get();
                 if (comp%2==0){
                     valor = valor+comp; 
-                    System.out.println("El consumidor "+n+" recoge de la lista");
+                    System.out.println("El consumidor "+n+" recoge de la lista "+comp);
                 }
                 
             }else if (n==2) {
                 comp = cola3.get();
-                if (comp%2!=0){
+                if (comp%2!=0 || comp==1){
                     valor2 = valor2*comp; 
-                    System.out.println("El consumidor "+n+" recoge de la lista");
+                    System.out.println("El consumidor "+n+" recoge de la lista "+comp);
                 }
             }                    
         }

@@ -11,16 +11,18 @@ public class Consumidor1 extends Thread {
 
     public void run() {
         int valor = 0;
-        
+        int llev=0;
         for (int i = 0; i < 10; i++) {
+            
+            llev=cola1.get();
+            valor = valor+llev; //recoge el n�mero
+            
             try {
-                Thread.sleep(1000);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 
-            }
-            valor = valor+cola1.get(); //recoge el n�mero
-            System.out.println("El consumidor "+n+" recoge de la lista");
-                               
+            }  
+            System.out.println("El consumidor "+n+" recoge de la lista "+llev);             
                               
                                
         }

@@ -12,20 +12,23 @@ public class Consumidor2 extends Thread {
     public void run() {
         int valor = 0;
         int valor2=1;
-        
+        int llev=0;
         for (int i = 0; i < 5; i++) {
+            
+            if (n==1){
+                llev = cola2.get(); 
+                valor = valor+llev;
+                System.out.println("El consumidor "+n+" recoge de la lista "+llev);
+            }else if (n==2) {
+                llev = cola2.get(); 
+                valor2 = valor2*llev; 
+                System.out.println("El consumidor "+n+" recoge de la lista "+llev);
+            }   
             try {
-                Thread.sleep(1000);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 
-            }
-            if (n==1){
-                valor = valor+cola2.get(); 
-                System.out.println("El consumidor "+n+" recoge de la lista");
-            }else if (n==2) {
-                valor2 = valor2*cola2.get(); 
-                System.out.println("El consumidor "+n+" recoge de la lista");
-            }                    
+            }                 
         }
         if (n==1){
             System.out.println("El total recogido es por el consumidor 1 es "+valor);

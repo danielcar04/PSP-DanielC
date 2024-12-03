@@ -11,14 +11,16 @@ public class Productor1 extends Thread {
 
     public void run() {
         for (int i = 0; i < 10; i++) {
+            
             numero = (int) (Math.random() * 10) + 1;
             cola1.put(numero); //escribe el número en la coala
+            
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                
+            }                 
             System.out.println("el productor "+n+" produce "+numero);
-                               try {
-                                Thread.sleep(100);
-                            } catch (InterruptedException e) {
-                                
-                            }
         }
     }
 }
