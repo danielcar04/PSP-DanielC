@@ -9,19 +9,22 @@ public class Cola2 {
 
 	public synchronized int get(int n) {	
 		if (c1 == true && c2==true){
+			System.out.println("el coonsumidor " +n+" elimina -------->"+lista.peek());
+			lista.remove();
 			c1=false;
 			c2=false;
-			lista.remove();
 		}
 		if (lista.size() == 0) {
 			try {
+				System.out.println("El consumidor " + n + " espera ");	
 				wait();
 			} catch (Exception e) {}
 		}	
 		numero = lista.peek();	
 		if(n==1){
 			c1=true;
-		}else if(n==2){
+		}
+		if(n==2){
 			c2=true;
 		}
 		System.out.println("El consumidor " + n + " recoge de la lista " + numero);	
@@ -32,11 +35,15 @@ public class Cola2 {
 	public synchronized void put(int valor) {
 		if (lista.size() == 5) {
 			try {
+				System.out.println("el productor espera" );
 				wait();
-			} catch (Exception e) {
-			}
+			} catch (Exception e) {}
 		}
-		lista.offer(valor);
+		try {
+			lista.put(valor);
+		} catch (Exception e) {
+			System.out.println("error");
+		}
 		System.out.println("el productor produce " + valor);
 		notifyAll();
 	}

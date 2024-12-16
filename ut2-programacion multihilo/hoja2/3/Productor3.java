@@ -13,9 +13,9 @@ public class Productor3 extends Thread {
         for (int i = 0; i < 10; i++) {
             numero = (int) (Math.random() * 10) + 1;
             cola3.put(numero); //escribe el número en la coala
-            System.out.println("el productor "+n+" produce "+numero);
+            
                                try {
-                                Thread.sleep(100);
+                                Thread.sleep(10);
                             } catch (InterruptedException e) {
                                 
                             }

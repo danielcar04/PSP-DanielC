@@ -21,7 +21,7 @@ public class Consumidor2 extends Thread {
                 valor2 = valor2 + llev;  
             }
             try {
-                Thread.sleep(1000);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 
             } 

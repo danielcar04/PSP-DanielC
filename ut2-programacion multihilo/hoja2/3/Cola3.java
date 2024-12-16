@@ -2,51 +2,59 @@
 import java.util.concurrent.ArrayBlockingQueue;
 
 public class Cola3 {
-    private int numero;
-	public static ArrayBlockingQueue<Integer>lista = new ArrayBlockingQueue<>(5);
+	private int numero;
+	public static ArrayBlockingQueue<Integer> lista = new ArrayBlockingQueue<>(5);
+	private boolean c1 = false;
+	private boolean c2 = false;
 
-    //métodos sincronizados -> productor y consumidor no podrán acceder simultáneamente al objeto Cola COMPARTIDO
-    // Mientras el productor esté cambiando valor en la cola el consumidor no puede recogerlo y viceversa
-    
-    // Necesaria COORDINACIÓN !!! 
-    //  * cuando el productor ponga número en la cola -> avisará al consumidor. Prodcutor deberá esperar cola esté vacía para generar nuevo dato
-    //  * cuando el consumidor recoga número de cola -> avisará al productor cola está vacía. Consumidor debe esparar a que cola tenga datos
-    
-    // COORDINACIÓN uso métodos wait(), notify() y notifyAll(). Sólo pueden usarse desde métodos sincronizados o dentro bloque sincronizado
-    
-    // *wait(): un hilo que llama al método wait() de un objeto queda suspendido hasta que otro hilo llame a notify()-notifyAll() del mismo objeto
-    // *notify(): despierta o activa a uno de los hilos que realizó llamada a wait(). Si varios hilos esperan, solo uno de ellos será elegido para continuar (elección aleatoria)
-    // *notify(): despierta o activa a todos hilos estén esperando el objeto
-   
-    
-    public synchronized int get() {
-       if (lista.peek()==null) {
-		try {
-			wait();
-		} catch (Exception e) {
-			// TODO: handle exception
+	public synchronized int get(int n) {
+		boolean modif = false;
+		if (c1 == true && c2==true){
+			System.out.println("el coonsumidor " +n+" elimina -------->"+lista.peek());
+			lista.remove();
+			c1=false;
+			c2=false;
 		}
-	   }  
-	   try {    
-		numero = lista.take();
-		notify();	
-  } catch (InterruptedException e) { }
-	   return numero;
-    	}
+		if (lista.size() == 0) {
+			try {
+				System.out.println("El consumidor " + n + " espera ");	
+				wait();
+			} catch (Exception e) {}
+		}	
+		numero = lista.peek();	
+		if(n==1){
+			c1=true;
+			if(numero%2==0){
+				System.out.println("El consumidor " + n + " recoge de la lista " + numero);	
+				modif = true;
+			}
+		}
+		if(n==2){
+			c2=true;
+			if(numero%2!=0){
+				System.out.println("El consumidor " + n + " recoge de la lista " + numero);	
+				modif = true;
+			}
+		}
+		if (modif == false){
+			numero=-1;
+		}
+		
+		notifyAll();
+		return numero;
+	}
 
-
-    public synchronized void put(int valor) {
-    	  if (lista.size()==5) {
-			notify();
+	public synchronized void put(int valor) {
+		if (lista.size() == 5) {
 			try {
 				wait();
 			} catch (Exception e) {
-				// TODO: handle exception
 			}
-		  }
-		  lista.offer(valor);
-    	}
-
+		}
+		lista.offer(valor);
+		System.out.println("el productor produce " + valor);
+		notifyAll();
+	}
 
     
 }

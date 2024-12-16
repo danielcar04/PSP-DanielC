@@ -20,7 +20,7 @@ public class Productor1 extends Thread {
             } catch (InterruptedException e) {
                 
             }                 
-            System.out.println("el productor "+n+" produce "+numero);
+            
         }
     }
 }

@@ -22,7 +22,7 @@ public class Consumidor1 extends Thread {
             } catch (InterruptedException e) {
                 
             }  
-            System.out.println("El consumidor "+n+" recoge de la lista "+llev);             
+                      
                               
                                
         }

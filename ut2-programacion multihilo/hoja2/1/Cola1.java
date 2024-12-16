@@ -20,7 +20,7 @@ public class Cola1 {
    
     
     public synchronized int get() {
-       if (lista.peek()==null) {
+       if (lista.size()==0) {
 		try {
 			wait();
 		} catch (Exception e) {
@@ -29,6 +29,7 @@ public class Cola1 {
 	   }  
 	   try {    
 		numero = lista.take();
+		System.out.println("El consumidor recoge de la lista "+numero);   
 		notify();	
   } catch (InterruptedException e) { }
 	   return numero;
@@ -37,7 +38,7 @@ public class Cola1 {
 
     public synchronized void put(int valor) {
     	  if (lista.size()==5) {
-			notify();
+			
 			try {
 				wait();
 			} catch (Exception e) {
@@ -45,6 +46,8 @@ public class Cola1 {
 			}
 		  }
 		  lista.offer(valor);
+		  System.out.println("el productor produce "+valor);
+		  notify();
     	}
 
 

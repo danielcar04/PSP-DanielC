@@ -14,26 +14,29 @@ public class Consumidor3 extends Thread {
         int valor2=1;
         int comp;
         
-        for (int i = 0; i < 5; i++) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                
-            }
+        for (int i = 0; i < 10; i++) {
+            comp = cola3.get(n);
             if (n==1){
-                comp = cola3.get();
+                
                 if (comp%2==0){
+                    if(valor!=-1){
                     valor = valor+comp; 
-                    System.out.println("El consumidor "+n+" recoge de la lista "+comp);
+                    }
                 }
                 
             }else if (n==2) {
-                comp = cola3.get();
+               
                 if (comp%2!=0 || comp==1){
-                    valor2 = valor2*comp; 
-                    System.out.println("El consumidor "+n+" recoge de la lista "+comp);
+                    if(valor!=-1){
+                    valor2 = valor2+comp; 
+                    }
                 }
-            }                    
+            } 
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                
+            }                   
         }
         if (n==1){
             System.out.println("El total recogido es por el consumidor 1 es "+valor);
