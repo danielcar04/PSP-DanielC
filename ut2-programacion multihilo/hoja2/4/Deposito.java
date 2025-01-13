@@ -19,7 +19,7 @@ public class Deposito {
 
 	public synchronized void put(double valor) {
 		if (litrosdeposito != 0) {
-			notifyAll();
+			
 			try {
 				wait();
 			} catch (Exception e) {
