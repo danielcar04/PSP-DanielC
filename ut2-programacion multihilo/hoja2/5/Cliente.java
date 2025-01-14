@@ -1,7 +1,7 @@
 public class Cliente extends Thread {
     private Supermercado supermercado;
     private int n;
-
+    private int caja;
 
     public Cliente(Supermercado c, int n) {
         supermercado = c;
@@ -9,7 +9,13 @@ public class Cliente extends Thread {
     }
 
     public void run() {
-        supermercado.atender(n);
+       caja = supermercado.atender(n);
+        try {
+            Thread.sleep(5000);
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        supermercado.cobrando(caja,n);
     }
     
 }
