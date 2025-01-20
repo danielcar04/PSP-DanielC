@@ -21,10 +21,7 @@ public class Supermercado {
             System.out.println("caja "+n+" termino de atender al cliente "+cliente );
         }
         if(contador >= 15){
-            contador +=1;
-            if(contador >= 18){
-                System.out.println("Supermercado cerrado");  
-            }
+            return -1;
         }else{
         while (cola.size() == 0) {
             try {
@@ -43,6 +40,5 @@ public class Supermercado {
         notifyAll();
         return numero;
     }
-    return -1;
     }
 }
