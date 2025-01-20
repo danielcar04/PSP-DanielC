@@ -38,5 +38,13 @@ public class Apertura {
     cliente13.start();
     cliente14.start();
     cliente15.start();
+    try {
+      caja1.join();
+    caja2.join();
+    caja3.join();
+    } catch (Exception e) {
+      // TODO: handle exception
+    }
+    System.out.println("Supermercado cerrado segundo aviso");  
  }
 }
