@@ -43,6 +43,6 @@ public class Supermercado {
         notifyAll();
         return numero;
     }
-    return 0;
+    return -1;
     }
 }

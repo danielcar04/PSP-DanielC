@@ -7,10 +7,10 @@ public class Caja extends Thread{
         this.n = n;
     }
     public void run(){
-        for (int i = 0; i <= 5; i++) {
+        while(cliente != -1){
             cliente =supermercado.atender(n, cliente);
             try {
-                Thread.sleep(cliente*100);
+                Thread.sleep(1000);
             } catch (Exception e) {
                 // TODO: handle exception
             }
