@@ -16,15 +16,12 @@ public class TCPClientSocket2 {
         for (int num : numeros) {
             buffer.putInt(num);
         }
-        byte[] array = buffer.array(); // Convertir a bytes
+        byte[] array = buffer.array(); 
 
         Socket socket = new Socket(servidor, puerto);
             DataOutputStream flujoSalida = new DataOutputStream(socket.getOutputStream());
 
-            // Enviar la cantidad de bytes primero
-            flujoSalida.writeInt(array.length);
-            
-            // Enviar el array de bytes
+    
             flujoSalida.write(array);
 
             System.out.println("Array enviado al servidor.");
