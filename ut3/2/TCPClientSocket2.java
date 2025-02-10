@@ -8,7 +8,7 @@ public class TCPClientSocket2 {
         String servidor = "192.168.114.119";
         int puerto = 6666;
 		Random random = new Random();
-        int[] numeros = new int [10]; // Array a enviar
+        int[] numeros = new int [10]; 
 		for (int i = 0;i<10;i++){
 			numeros[i]= random.nextInt(10);
 		}
