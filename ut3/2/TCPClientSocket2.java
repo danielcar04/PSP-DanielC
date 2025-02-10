@@ -12,7 +12,7 @@ public class TCPClientSocket2 {
 		for (int i = 0;i<10;i++){
 			numeros[i]= random.nextInt(10);
 		}
-		ByteBuffer buffer = ByteBuffer.allocate(numeros.length * 4); // Cada entero ocupa 4 bytes
+		ByteBuffer buffer = ByteBuffer.allocate(numeros.length * 4); 
         for (int num : numeros) {
             buffer.putInt(num);
         }
