@@ -5,18 +5,24 @@ public class UDPObjetoServidor1 {
   public static void main(String[] arg) throws IOException,
 						ClassNotFoundException {
    int numeroPuerto = 6000;// Puerto
-   ServerSocket servidor =  new ServerSocket(numeroPuerto);
+   DatagramSocket socket = new DatagramSocket(numeroPuerto);
+   byte[] receiveData = new byte[1024];
+ 
    System.out.println("Esperando al cliente.....");   
-   Socket cliente = servidor.accept();
+ 
 
    String tipo;
    double iva = 0;
    double importeTotal;
 
-   ObjectInputStream inObjeto = new ObjectInputStream(
-   cliente.getInputStream());
+   DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+   socket.receive(receivePacket);
+   
+   ByteArrayInputStream byteStream = new ByteArrayInputStream(receivePacket.getData());
+   ObjectInputStream objectStream = new ObjectInputStream(byteStream);
+   Object receivedObject = objectStream.readObject();
 
-   Factura factura = (Factura) inObjeto.readObject();
+   Factura factura = (Factura) receivedObject;
 
    System.out.println("Recibo: "+factura.getNumerofactura()+"*"+factura.getImporte());
 
@@ -34,16 +40,19 @@ public class UDPObjetoServidor1 {
 	factura.setIva(iva);
     factura.setImportetotal(importeTotal);
 
-   ObjectOutputStream outObjeto = new ObjectOutputStream(
-				cliente.getOutputStream()); 	
+    InetAddress IPAddress = receivePacket.getAddress();
+    int port = receivePacket.getPort();
 
-   outObjeto.writeObject(factura); 
-   System.out.println("Envio: " + factura.getNumerofactura()+" iva "+factura.getIva()+ " total "+factura.getImportetotal());  
-		
-   // CERRAR STREAMS Y SOCKETS
-   outObjeto.close();
-   inObjeto.close();
-   cliente.close();
-   servidor.close();
+    ByteArrayOutputStream byteStream2 = new ByteArrayOutputStream();
+    ObjectOutputStream objectStream2 = new ObjectOutputStream(byteStream2);
+
+    objectStream2.writeObject(factura);
+
+    byte[] sendData = byteStream2.toByteArray();
+            
+    DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
+    socket.send(sendPacket);
+
+  System.out.println("enviado");
   }
-}//..
+}
